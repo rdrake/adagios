@@ -19,7 +19,6 @@
 from django.shortcuts import render_to_response, redirect
 from django.core import serializers
 from django.http import HttpResponse, HttpResponseServerError
-from django.utils import simplejson
 #from django.core.context_processors import csrf
 from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
@@ -93,7 +92,7 @@ def handle_request(request, module_name, module_path, attribute, format):
         raise BaseException(_("Unsupported operation: %s") % (request.method, ))
     # Everything below is just about formatting the results
     if format == 'json':
-        result = simplejson.dumps(
+        result = json.dumps(
             result, ensure_ascii=False, sort_keys=True, skipkeys=True, indent=4)
         mimetype = 'application/javascript'
     elif format == 'xml':
